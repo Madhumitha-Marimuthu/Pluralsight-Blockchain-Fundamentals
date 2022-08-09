@@ -19,6 +19,6 @@ contract HelloWorld {
   // https://www.w3schools.io/blockchain/solidity-function/
   function SayHello() public pure returns (string memory) 
   {
-    return "Hello World !";
+    return "Hello World !!";
   }
 }
