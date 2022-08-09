@@ -1,0 +1,25 @@
+Commands -
+truffle version
+truffle development
+migrate
+var hw
+HelloWorld.deployed().then(function (deployed){hw=deployed;});
+hw.SayHello.call()
+var ss
+ScoreStore.deployed().then(function (deployed){ss=deployed;});
+ss.AddPerson("Taha",10);
+ss.GetScore.call("Taha");
+
+Location of node modules - /usr/lib/node_modules
+Using artifacts.require - https://stackoverflow.com/questions/46101430/proper-use-of-artifacts-require
+What is require in JS - https://stackoverflow.com/questions/9901082/what-is-this-javascript-require
+Understanding truffle migration scripts - https://trufflesuite.com/docs/truffle/getting-started/running-migrations/
+Truffle project set up - https://blog.ippon.tech/creating-your-first-truffle-project-part-1-of-2/
+Compiler optimizing cost of contract execution - https://docs.soliditylang.org/en/v0.8.10/internals/optimizer.html#optimizer-parameter-runs
+
+Solidity Tests - https://trufflesuite.com/docs/truffle/testing/writing-tests-in-solidity/
+
+Solidity Storage locations - 
+	https://solidity-by-example.org/data-locations/
+	https://blockheroes.dev/data-location-in-solidity/
+
