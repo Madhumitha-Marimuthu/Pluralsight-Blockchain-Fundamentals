@@ -41,5 +41,20 @@ contract("CrowdFundingWithDeadline", (accounts) => {
         expect(actualState.toString()).to.equal(CrowdFundingWithDeadline.State.Ongoing.toString())
 
     })
+
+    it('funds are contributed', async function(){
+        await contract.contribute({
+            value: ONE_ETH,
+            from: contractCreator
+        })
+
+        // for basic types, Solidity creates a getter for the fields
+        // for mappings, the getter takes in a parameter for the key
+        let contributed = await contract
+            .amounts
+            .call(contractCreator);
+        expect(Number(contributed)).to.equal(ONE_ETH);
+
+    })
     
 })

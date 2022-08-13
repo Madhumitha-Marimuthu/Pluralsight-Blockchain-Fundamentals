@@ -7,6 +7,7 @@ contract CrowdFundingWithDeadline {
     // Ongoing is 0, Succeeded is 2 etc
     enum State {Ongoing, Failed, Succeeded, PaidOut}
     
+    // Contract identification fields
     // name of the project
     string public name;
     // amount in Wei
@@ -14,8 +15,23 @@ contract CrowdFundingWithDeadline {
     // eopch end time
     uint public fundingDeadline;
     address public beneficiary;
-    // state of teh contract
+    // state of the contract
     State public state;
+
+    // Contract functional fields
+    // map to track amount pledged
+    mapping(address => uint) public amounts;
+    // funding achieved or not ?
+    bool public collected;
+    // total amount collected
+    uint totalCollected;
+    
+    // modifier to verify the state of the contract
+    modifier inState(State expectedState){
+        require(state == expectedState, "Contract is in invalid state");
+        // continues with the execution of the method
+        _;
+    }
 
     constructor(
         // using memory since this value will be copied to a storage variable later and is hence needed only at initialization
@@ -36,6 +52,22 @@ contract CrowdFundingWithDeadline {
     function currentTime() internal view returns(uint){
         return block.timestamp; // 'now' is depraecated
     }
+
+    // This method expects the contract to be in "Ongoing" status
+    // Custom modifiers should be after standard modifiers like 'public'
+    // Functions and addresses declared payable can receive ether into the contract
+    function contribute() public payable inState(State.Ongoing) returns(uint) {
+        amounts[msg.sender] += msg.value;
+        totalCollected += msg.value;
+
+        // check if target funding is achieved
+        if(totalCollected == targetAmount) {
+            // set collected flag to true
+            collected = true;
+        }
+    }
+
+    
 
 
 }

@@ -58,4 +58,8 @@ contract CrowdFunding {
 
         
     }
+
+    function currentTime() internal view returns(uint){
+        return block.timestamp; // 'now' is depraecated
+    }
 }

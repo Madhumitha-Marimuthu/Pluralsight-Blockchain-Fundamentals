@@ -18,8 +18,10 @@ Truffle project set up - https://blog.ippon.tech/creating-your-first-truffle-pro
 Compiler optimizing cost of contract execution - https://docs.soliditylang.org/en/v0.8.10/internals/optimizer.html#optimizer-parameter-runs
 
 Solidity Tests - https://trufflesuite.com/docs/truffle/testing/writing-tests-in-solidity/
-
+ 
 Solidity Storage locations - 
 	https://solidity-by-example.org/data-locations/
 	https://blockheroes.dev/data-location-in-solidity/
 
+
+What is natspec (comments) ?
