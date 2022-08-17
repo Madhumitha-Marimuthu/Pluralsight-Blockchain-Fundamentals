@@ -1,4 +1,5 @@
-const CrowdFundingWithDeadline = artifacts.require("CrowdFundingWithDeadline");
+// Using the test contract with overridden method for getCurrentTime for testing
+const CrowdFundingWithDeadline = artifacts.require("TestCrowdFundingWithDeadline");
 
 contract("CrowdFundingWithDeadline", (accounts) => {
     
@@ -23,7 +24,7 @@ contract("CrowdFundingWithDeadline", (accounts) => {
        );
     });
 
-    it('contract is initialized', async function() {
+    it('is contract initialized', async function() {
         // for all public fields in the contract, solidity creates an access method called 'call'
         let campaignName = await contract.name.call();
         expect(campaignName).to.equal('testFundingContract')
@@ -38,11 +39,16 @@ contract("CrowdFundingWithDeadline", (accounts) => {
         let actualState = await contract.state.call()
         // actualState.valueOf() does not work
         expect(actualState.toString()).to.equal('0')
-        expect(actualState.toString()).to.equal(CrowdFundingWithDeadline.State.Ongoing.toString())
+        // alternate reference to enum -
+        // expect(actualState.toString()).to.equal(CrowdFundingWithDeadline.State.Ongoing.toString())
+        
+        // check the deadline
+        let actualDeadline = await contract.fundingDeadline.call();
+        expect(Number(actualDeadline)).to.equal(600);
 
     })
 
-    it('funds are contributed', async function(){
+    it('are funds contributed', async function(){
         await contract.contribute({
             value: ONE_ETH,
             from: contractCreator

@@ -5,6 +5,7 @@ contract CrowdFundingWithDeadline {
 
     // The valueof the states will start from 0
     // Ongoing is 0, Succeeded is 2 etc
+    // This cant be directly accessed from a child contract. Why ?
     enum State {Ongoing, Failed, Succeeded, PaidOut}
     
     // Contract identification fields
@@ -16,6 +17,7 @@ contract CrowdFundingWithDeadline {
     uint public fundingDeadline;
     address public beneficiary;
     // state of the contract
+    // by default the value will be the first declared member of the enum ie Ongoing
     State public state;
 
     // Contract functional fields
@@ -33,6 +35,7 @@ contract CrowdFundingWithDeadline {
         _;
     }
 
+    // constructors do not need visibility modifiers like public.
     constructor(
         // using memory since this value will be copied to a storage variable later and is hence needed only at initialization
         string memory contractName,
@@ -40,8 +43,8 @@ contract CrowdFundingWithDeadline {
         uint durationInMin,
         address beneficiaryAddress
     )
-
-    public{
+    
+    {
         name = contractName;
         targetAmount = targetAmountEth * 1 ether;// 1 ether = 1e18 Wei
         fundingDeadline = currentTime() + durationInMin * 1 minutes;
@@ -49,7 +52,8 @@ contract CrowdFundingWithDeadline {
         state = State.Ongoing;
     }
 
-    function currentTime() internal view returns(uint){
+    // ading 'virtual' keyword since this method can be overriden
+    function currentTime() internal virtual view returns(uint){
         return block.timestamp; // 'now' is depraecated
     }
 
