@@ -68,6 +68,7 @@ contract CrowdFundingWithDeadline {
         if(totalCollected == targetAmount) {
             // set collected flag to true
             collected = true;
+            // comment to test remix online commit
         }
     }
 
